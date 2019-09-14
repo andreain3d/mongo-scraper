@@ -1,9 +1,7 @@
-module.exports = function(app) {
-  app.get("/", function(req, res) {
-    res.render("index");
-  });
+var controller = require("../controllers/controller.js");
 
-  app.get("/saved", function(req, res) {
-    res.render("saved");
-  });
+module.exports = function(app) {
+  app.get("/", controller.index);
+
+  app.get("/saved", controller.saved);
 };

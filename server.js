@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+var exphbs = require("express-handlebars");
 app.engine(
   "handlebars",
   exphbs({
@@ -27,5 +28,9 @@ require("./routes/htmlRoutes.js")(app);
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
 
 mongoose.connect(MONGODB_URI);
+
+app.listen(PORT, function() {
+  console.log("App running on port " + PORT + "!");
+});
 
 module.exports = app;
