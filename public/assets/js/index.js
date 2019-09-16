@@ -1,9 +1,21 @@
 $(document).ready(function() {
-  $(".save").on("click", function() {});
+  $(document).on("click", ".save", function() {
+    var savedid = $(this).attr("data-id");
+    console.log(savedid);
+    axios
+      .put("/articles", {
+        params: {
+          id: savedid
+        }
+      })
+      .then(function() {
+        reloadPage();
+      });
+  });
 
   $(".scrape").on("click", function() {
-    $.get("/scrape").then(function(data) {
-      console.log("this is also running");
+    $.get("/scrape").then(function() {
+      console.log("this is running");
       reloadPage();
     });
   });
@@ -39,7 +51,12 @@ $(document).ready(function() {
         $("<h3>").append(
           $("<a>")
             .attr("href", data[i].link)
-            .text(data[i].title)
+            .text(data[i].title),
+          $(
+            "<a data-id= '" +
+              data[i]._id +
+              "'class='btn btn-info save'>Save Article</a>"
+          )
         )
       );
       var body = $("<div class='card-body'>").text(

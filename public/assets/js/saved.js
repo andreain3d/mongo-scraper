@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  $(".clear").on("click", function() {
+    $.get("/clearsaved").then(function() {
+      $(".article-container").empty();
+      loadPage();
+    });
+  });
+
   var loadPage = function() {
     $.get("/savedarticles").then(function(data) {
       $(".article-container").empty();
@@ -35,4 +42,6 @@ $(document).ready(function() {
       $(".article-container").append(card.append(header, body));
     }
   };
+
+  loadPage();
 });
